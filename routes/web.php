@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Route;
 Route::view('/profil-kelas', 'profil-kelas')
     ->name('profil-kelas');
 
+Route::view('/books', 'profil-kelas')->name('books');
+
 Route::inertia('/', 'welcome')->name('home');
 
 Route::prefix('{current_team}')
