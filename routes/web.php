@@ -3,12 +3,22 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Teams\TeamInvitationController;
 use App\Http\Middleware\EnsureTeamMembership;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\FilmController;
 use Illuminate\Support\Facades\Route;
+ 
+Route::get('/books', [BookController::class, 'index'])
+    ->name('books.index');
+
+Route::get('/books/{id}', [BookController::class, 'show'])
+    ->whereNumber('id')
+    ->name('books.show');
+
+Route::get('/films', [FilmController::class, 'index'])
+    ->name('films.index');
 
 Route::view('/profil-kelas', 'profil-kelas')
     ->name('profil-kelas');
-
-Route::view('/books', 'profil-kelas')->name('books');
 
 Route::inertia('/', 'welcome')->name('home');
 
