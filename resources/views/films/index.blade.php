@@ -1,27 +1,33 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Film</title>
-</head>
-<body>
+@forelse ($films as $film)
+    <tr>
+        <td>{{ $films->firstItem() + $loop->index }}</td>
+        <td>{{ $film->title }}</td>
+        <td>{{ $film->director }}</td>
+        <td>{{ $film->release_year }}</td>
+        <td>
+            <a href="{{ route('films.show', $film) }}">Detail</a>
+        </td>
+    </tr>
+@empty
+    <tr>
+        <td colspan="5">Data belum tersedia.</td>
+    </tr>
+@endforelse
+@if ($films->hasPages())
+    <nav>
+        @if ($films->onFirstPage())
+            <span>Sebelumnya</span>
+        @else
+            <a href="{{ $films->previousPageUrl() }}">Sebelumnya</a>
+        @endif
 
-    <h1>Daftar Film</h1>
+        <span>
+            Halaman {{ $films->currentPage() }}
+            dari {{ $films->lastPage() }}
+        </span>
 
-    <ul>
-        @forelse ($films as $film)
-            <li>
-                <strong>{{ $film['title'] }}</strong><br>
-                Sutradara: {{ $film['director'] }}<br>
-                Tahun: {{ $film['year'] }}<br>
-                ID: {{ $film['id'] }}
-            </li>
-            <br>
-        @empty
-            <li>Data film belum tersedia.</li>
-        @endforelse
-    </ul>
-
-</body>
-</html>
+        @if ($films->hasMorePages())
+            <a href="{{ $films->nextPageUrl() }}">Berikutnya</a>
+        @endif
+    </nav>
+@endif

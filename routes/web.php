@@ -7,20 +7,14 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\FilmController;
 use Illuminate\Support\Facades\Route;
  
-Route::get('/books', [BookController::class, 'index'])
-    ->name('books.index');
+Route::resource('books', BookController::class);
 
-Route::get('/books/{id}', [BookController::class, 'show'])
-    ->whereNumber('id')
-    ->name('books.show');
-
-Route::get('/films', [FilmController::class, 'index'])
-    ->name('films.index');
+Route::resource('films', FilmController::class)->only(['index', 'show']);
 
 Route::view('/profil-kelas', 'profil-kelas')
     ->name('profil-kelas');
 
-Route::inertia('/', 'welcome')->name('home');
+Route::view('/', 'home')->name('home');
 
 Route::prefix('{current_team}')
     ->middleware(['auth', 'verified', EnsureTeamMembership::class])
