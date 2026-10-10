@@ -4,15 +4,25 @@
 
 @section('content')
     <h1>{{ $book->title }}</h1>
-    <dl>
-        <dt>ISBN</dt>
-        <dd>{{ $book->isbn ?: '-' }}</dd>
-        <dt>Penulis</dt>
-        <dd>{{ $book->author }}</dd>
-        <dt>Harga</dt>
-        <dd>Rp {{ number_format((float) $book->price, 0, ',', '.') }}</dd>
-        <dt>Stok</dt>
-        <dd>{{ $book->stock }}</dd>
-    </dl>
-    <a href="{{ route('books.index') }}">Kembali</a>
+
+    <table border="1" cellpadding="8" cellspacing="0">
+        <tr>
+            <th align="left">ISBN</th>
+            <td>{{ $book->isbn ?: '-' }}</td>
+        </tr>
+        <tr>
+            <th align="left">Penulis</th>
+            <td>{{ $book->author }}</td>
+        </tr>
+        <tr>
+            <th align="left">Harga</th>
+            <td>Rp {{ number_format((float) $book->price, 0, ',', '.') }}</td>
+        </tr>
+        <tr>
+            <th align="left">Stok</th>
+            <td>{{ $book->stock }}</td>
+        </tr>
+    </table>
+
+    <p><a href="{{ route('books.index') }}">Kembali</a></p>
 @endsection
